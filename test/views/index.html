@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Elegance.js</title>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		
+		<style type="text/css">
+
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h3>Elegance.js</h3>
+			<ul class="nav navigation">
+				<a href="/tasks">Tasks</a>
+				<a href="/tasks/1">Task 1</a>
+				<a href="/about">About</a>
+			</ul>
+			
+			<div data-template-name="tasks">
+				<h3>Tasks</h3>
+			</div>
+
+			<div data-template-name="task">
+				<h3>Task <span data-variable="id"></span></h3>
+				<p>
+					<span data-variable="text">text</span>
+					(<span data-variable="id">id</span>)
+				</p>
+				<button class="delete btn btn-danger btn-sm">Delete</button>
+			</div>
+
+			<div data-template-name="about">
+				<h3>About</h3>
+			</div>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		
+		<script src="/scripts/handlebars.min.js"></script>
+		<!-- elegance core -->
+		<script src="/scripts/elegance/elegance.js"></script>
+		<script src="/scripts/elegance/utils.js"></script>
+		<script src="/scripts/elegance/radio.js"></script>
+		<script src="/scripts/elegance/attributes.js"></script>
+		<script src="/scripts/elegance/model.js"></script>
+		<script src="/scripts/elegance/collection.js"></script>
+		<script src="/scripts/elegance/controller/controller.js"></script>
+		<script src="/scripts/elegance/controller/CollectionController.js"></script>
+		<script src="/scripts/elegance/templaterenderer.js"></script>
+		<script src="/scripts/elegance/app.js"></script>
+	
+		<!-- modules -->
+		<script src="/scripts/elegance/router/router.js"></script>
+		<script src="/scripts/elegance/router/route.js"></script>
+		
+		<!-- app -->
+		<script src="/scripts/taskmodel.js"></script>
+		<script src="/scripts/taskscontroller.js"></script>
+		<script src="/scripts/taskcontroller.js"></script>
+
+		<script src="/scripts/app.js"></script>
+	</body>
+</html>

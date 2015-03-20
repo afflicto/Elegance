@@ -1,6 +1,6 @@
 {
-  "name": "Elegance",
-  "version": "0.0.1",
+  "name": "elegance",
+  "version": "0.2.0",
   "description": "Elegant Javascript Framework",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,10 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-coffee": "^2.3.1",
-    "gulp-concat": "^2.5.2"
+    "gulp-concat": "^2.5.2",
+    "gulp-order": "^1.1.1",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-util": "^3.0.4",
+    "handlebars": "^3.0.0"
   }
 }

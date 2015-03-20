@@ -1,0 +1,12 @@
+(function() {
+  Elegance.Attribute = {
+    integer: function() {},
+    string: function() {},
+    float: function() {},
+    timestamp: function() {},
+    timestamp: function() {}
+  };
+
+}).call(this);
+
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIkRhdGEvYXR0cmlidXRlcy5jb2ZmZWUiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQSxFQUFBLFFBQVEsQ0FBQyxTQUFULEdBQ0M7QUFBQSxJQUFBLE9BQUEsRUFBUyxTQUFBLEdBQUEsQ0FBVDtBQUFBLElBQ0EsTUFBQSxFQUFRLFNBQUEsR0FBQSxDQURSO0FBQUEsSUFFQSxLQUFBLEVBQU8sU0FBQSxHQUFBLENBRlA7QUFBQSxJQUdBLFNBQUEsRUFBVyxTQUFBLEdBQUEsQ0FIWDtBQUFBLElBSUEsU0FBQSxFQUFXLFNBQUEsR0FBQSxDQUpYO0dBREQsQ0FBQTtBQUFBIiwiZmlsZSI6IkRhdGEvYXR0cmlidXRlcy5qcyIsInNvdXJjZVJvb3QiOiIvc291cmNlLyIsInNvdXJjZXNDb250ZW50IjpbIkVsZWdhbmNlLkF0dHJpYnV0ZSA9IFxyXG5cdGludGVnZXI6ICgpIC0+XHJcblx0c3RyaW5nOiAoKSAtPlxyXG5cdGZsb2F0OiAoKSAtPlxyXG5cdHRpbWVzdGFtcDogKCkgLT5cclxuXHR0aW1lc3RhbXA6ICgpIC0+Il19
