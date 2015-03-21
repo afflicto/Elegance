@@ -9,11 +9,14 @@ class Elegance.Router.Route
 
 		# create controller
 		if @target is null
-			clazz = Elegance.utils.capitalize(@name) + "Controller"
-			if window[clazz]?
-				@target = new window[clazz](@app, @)
+			if @app.router.controllers[@name]?
+				@target = @app.router.controllers[@name]
 			else
-				@target = new Elegance.Controller(@app, @)
+				clazz = Elegance.utils.capitalize(@name) + "Controller"
+				if window[clazz]?
+					@target = new window[clazz](@app, @)
+				else
+					@target = new Elegance.Controller(@app, @)
 
 
 	matches: (test) ->

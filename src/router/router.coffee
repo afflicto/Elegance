@@ -1,7 +1,11 @@
 class Elegance.Router
+	
+	controllers: []
+
 	constructor: (@app) ->
 		@routes = []
 		@current = null
+		@currentURI = null
 
 		unless @app instanceof Elegance.App
 			throw new Error 'app must be an instance of Elegance.App!'
@@ -10,40 +14,52 @@ class Elegance.Router
 		self = @
 		$('a').on 'click', (e) ->
 			attr = $(this).attr 'href'
-			unless /^https?/.test attr
+
+			if attr? == false
+
+			else if attr.charAt(0) == "#"
+
+			else if /^https?/.test attr
+
+			else
 				e.preventDefault()
 				self.navigate attr
-				return false
 
 	setRootURL: (@rootURL) ->
 		@rootURL.replace /^https?:\/\//, ''
 
+	redirect: (@path) -> new Elegance.Router.Redirect @path
+
 	navigate: (path, pushState = true) ->
+		console.log "navigate, raw path:'#{path}'"
+
 		# sanitize
 		path = path.replace(/^\/{2,}/, '').replace(/\/{2,}$/, '')
 		path = '/' if path is ''
 
-		console.log "navigation to:'#{path}'"
+		if path == @currentURI
+			return false
+
 
 		for route in @routes
 			if route.matches path
+				console.log 'matches'
 				if route.target instanceof Elegance.Controller
 					# do we have a current route?
 					if @current isnt null
-						if @current == route
-							return false
-
 						if @current.target instanceof Elegance.Controller
-							@current.target.hide()
+							if @current.target isnt route.target
+								@current.target.hide()
 
 					# show it
 					route.target.init() unless route.target.initialized
-					route.target.show.apply(route.target, route.extractParameters(path))
+					value = route.target.show.apply(route.target, route.extractParameters(path))
 
-					# push state
+					# push state?
 					if pushState
 						window.history.pushState path, path, @rootURL + path
 
+					@currentURI = path
 					return @current = route
 
 		console.log "404 Not Found (#{path})"

@@ -1,3 +1,6 @@
 class window.TaskModel extends Elegance.Model
-	constructor: (@attributes) ->
-		super
+	attributes:
+		id: 0
+		name: "new task"
+		text: "lorem ipsum"
+		completed: false

@@ -6,6 +6,8 @@ class Elegance.App
 	 * @return {Elegance.App}         The new App instance
 	###
 	constructor: (modules = []) ->
+		Elegance.App.instance = this
+		
 		if modules instanceof Array is false
 			throw new Error "First argument to Elegance.App must be an Array!"
 

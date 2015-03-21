@@ -66,24 +66,43 @@ var records = [
 	},
 ]
 
-router.get('/tasks', function(req, res, next) {
+router.get('/task/count', function(req, res, next) {
 	res.json({
-		'records': records
-	})
+		'count': records.length
+	});
+	res.end()
 });
 
-router.get('tasks/page/:page', function(req, res, next) {
+router.get('/task/page/:page', function(req, res, next) {
 	var limit = 5
 	var page = (req.params.page !== 'undefined') ? req.params.page - 1 : 1
-	if (page < 1) page = 1
+	if (page < 0) page = 0
 	var offset = 5 * page
+	
+	var r = []
+	for(record in records) {
+		r[record] = records[record];
+	}
+
 	res.json({
-		'records': records.splice(offset, limit)
+		'records': r.splice(offset, limit)
 	});
+	res.end()
 });
 
-router.get('/tasks/:id', function(req, res, next) {
-	res.json({'record': records[req.params.id]})
+router.get('/task/:id', function(req, res, next) {
+	record = records[req.params.id];
+	res.json({
+		'records': [record]
+	});
+	res.end()
+});
+
+router.get('/task', function(req, res, next) {
+	res.json({
+		'records': records
+	});
+	res.end()
 });
 
 module.exports = router;

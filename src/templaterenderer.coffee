@@ -3,12 +3,13 @@ class Elegance.TemplateRenderer
 	constructor: (@app) ->
 
 	render: (template, variables = []) ->
-		variables = variables.attributes if variables instanceof Elegance.Model
 		elements = template.find('*')
 		
 		childTemplates = []
-
-		template.attr 'data-model-id', variables.id
+		
+		if variables instanceof Elegance.Model
+			variables = variables.attributes
+			template.attr 'data-model-id', variables.id
 
 		for element in elements
 			element = $(element)
@@ -24,4 +25,4 @@ class Elegance.TemplateRenderer
 			if bound?
 				value = ""
 				if variables[bound]? then value = variables[bound]
-				element.html(value)
+				element.text(value)

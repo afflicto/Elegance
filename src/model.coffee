@@ -1,5 +1,8 @@
 class Elegance.Model
-	constructor: (@attributes = {}) -> @radio = new Elegance.Radio
+	constructor: (attributes = {}) ->
+		@app = Elegance.App.instance
+		@attributes = $.extend {}, @attributes, attributes
+		@radio = new Elegance.Radio
 
 	###*
 	 * Begin listening for an event on this models radio
@@ -10,8 +13,6 @@ class Elegance.Model
 	on: (eventName, callback) -> @radio.on eventName, callback
 
 	off: (eventName, listeners) -> @radio.off eventName, listeners
-
-	destroy: () -> @radio.fire 'destroy'
 
 	###*
 	 * Get the value of the attribute
@@ -28,10 +29,17 @@ class Elegance.Model
 				unless @attributes[key] == value
 					@attributes[key] = value
 					isDifferent = yes
-					changed[key] = value
 
-		if @attributes[attribute] != value
+		else if @attributes[attribute] != value
 			@attributes[attribute] = value
 			isDifferent = yes
 
 		@radio.fire 'change', attribute, value if isDifferent
+
+	destroy: (persist = true) -> 
+		@radio.fire 'destroy'
+		if persist
+			@app.store.destroy @
+
+	save: () ->
+		@app.store.save @

@@ -14,6 +14,7 @@
 			<hr>
 			<ul class="nav navigation">
 				<a href="/tasks">Tasks</a>
+				<a href="/notes">Notes</a>
 				<a href="/tasks/1">Task 1</a>
 				<a href="/about">About</a>
 			</ul>
@@ -22,13 +23,49 @@
 			<div id="tasks">
 				<h2>Tasks</h2>
 				<ul class="tasks list-unstyled">
-					<li data-template-name="task">
-						<h4 data-variable="name">Task name</h4>
-						<p data-variable="text">Task text</p>
+					<li class="task" data-template-name="task">
+						<h4>
+							<span data-variable="name"></span> (#<span data-variable="id"></span>)
+						</h4>
+						<p>
+							<span data-variable="text">text</span>
+							<span data-variable="completed">completed</span>
+							<button class="btn btn-xs btn-danger destroy">Delete</button>
+						</p>
 					</li>
 				</ul>
+
+				<a class="previous-page">Previous</a>
+				&nbsp;
+				&nbsp;
+				<a class="next-page">Next</a>
+
 				<hr>
 				<h4>New Task</h4>
+				<form class="create">
+					<input type="text" name="name" placeholder="name"><br><br>
+					<textarea name="text"></textarea><br><br>
+					<input type="submit" class="btn btn-sm btn-primary" value="Create">
+				</form>
+			</div>
+
+			<div id="notes">
+				<h2>Notes</h2>
+				<ul class="notes list-unstyled">
+					<li class="note" data-template-name="note">
+						<h4 data-variable="name">Note name</h4>
+						<p>
+							<span data-variable="text">text</span>
+							<button class="btn btn-sm btn-danger destroy">Delete</button>
+						</p>
+					</li>
+				</ul>
+
+				<a class="collection-next">Next</a>
+				<a class="collection-previous">Previous</a>
+
+				<hr>
+				<h4>New Note</h4>
 				<form class="create">
 					<input type="text" name="name" placeholder="name"><br><br>
 					<textarea name="text"></textarea><br><br>
@@ -69,10 +106,14 @@
 		<!-- modules -->
 		<script src="/scripts/elegance/Router/Router.js"></script>
 		<script src="/scripts/elegance/Router/Route.js"></script>
+		<script src="/scripts/elegance/Store/Store.js"></script>
+		<script src="/scripts/elegance/Store/RESTDriver.js"></script>
 		
 		<!-- app -->
 		<script src="/scripts/TaskModel.js"></script>
+		<script src="/scripts/NoteModel.js"></script>
 		<script src="/scripts/TasksController.js"></script>
+		<script src="/scripts/NotesController.js"></script>
 		<script src="/scripts/TaskController.js"></script>
 
 		<script src="/scripts/app.js"></script>

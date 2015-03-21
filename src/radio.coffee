@@ -1,10 +1,9 @@
 class Elegance.Radio
 	constructor: () ->
 		@listeners = {}
-		@uid = 0
 
 	on: (events, callback) ->
-		id = ++@uid
+		id = ++Elegance.Radio.uid
 
 		for event in events.split ','
 			if @listeners[event]? == false
@@ -12,9 +11,9 @@ class Elegance.Radio
 
 			@listeners[event].push
 				callback: callback
-				id: @uid
+				id: id
 
-		return @uid
+		return id
 
 	off: (events, id) ->
 		for event in events.split ','
@@ -30,3 +29,7 @@ class Elegance.Radio
 		if @listeners[eventName]?
 			for listener in @listeners[eventName]
 				listener.callback.apply null, parameters
+
+
+
+Elegance.Radio.uid = 0

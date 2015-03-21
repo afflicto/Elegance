@@ -24,28 +24,35 @@ class Elegance.Controller
 				event = event.split ' '
 				selector = event.pop()
 				event = event[0]
-				if event == 'submit'
-					self = @
-					@element.find(selector).bind event, (e) ->
-						e.preventDefault()
 
-						input = {}
-						children = $(this).find('input, select, textarea')
+				@bindEvent @element, event, selector, this[method]
 
-						for child in children
-							child = $(child)
-							name = child.attr 'name'
+	bindEvent: (container, event, selector, method) ->
+		if event == 'submit'
+			self = @
 
-							if name?
-								tag = child.prop 'tagName'
-								tag = tag.toLowerCase()
+			callback = (e) ->
+				e.preventDefault()
 
-								if tag is 'input' or tag is 'textarea'
-									input[name] = child.val()
+				input = {}
+				children = $(this).find('input, select, textarea')
 
-						self[method](input)
-				else
-					@element.find(selector).bind(event, this[method])
+				for child in children
+					child = $(child)
+					name = child.attr 'name'
+
+					if name?
+						tag = child.prop 'tagName'
+						tag = tag.toLowerCase()
+
+						if tag is 'input' or tag is 'textarea'
+							input[name] = child.val()
+
+				method(input)
+				
+			container.on(event, selector, callback)
+		else
+			container.on(event, selector, method)
 
 	setData: (data) ->
 		# stop listening on our current data
@@ -79,7 +86,6 @@ class Elegance.Controller
 		return false
 
 	show: () ->
-		console.log 'showing controller'
 		if @element?
 			if @dirty
 				@render()

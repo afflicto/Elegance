@@ -6,46 +6,56 @@
   window.TasksController = (function(superClass) {
     extend(TasksController, superClass);
 
-    function TasksController() {
-      this.create = bind(this.create, this);
-      return TasksController.__super__.constructor.apply(this, arguments);
-    }
-
-    TasksController.prototype.events = {
-      'submit form.create': 'create'
-    };
+    TasksController.prototype.type = 'task';
 
     TasksController.prototype.container = 'ul.tasks';
 
-    TasksController.prototype.init = function() {
-      var collection;
-      TasksController.__super__.init.apply(this, arguments);
-      collection = new Elegance.Collection;
-      collection.add(new TaskModel({
-        'id': 0,
-        'name': 'Something',
-        'text': 'Lorem ipsum dolor sit amet.'
-      }));
-      collection.add(new TaskModel({
-        'id': 1,
-        'name': 'Two!',
-        'text': 'Lorem ipsum dolor.'
-      }));
-      collection.add(new TaskModel({
-        'id': 2,
-        'name': 'Something else',
-        'text': 'Do that, then Lorem'
-      }));
-      collection.add(new TaskModel({
-        'id': 3,
-        'name': 'Number four!',
-        'text': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, labore!'
-      }));
-      return this.setData(collection);
+    TasksController.prototype.events = {
+      'submit form.create': 'create',
+      'click a.next-page': 'next',
+      'click a.previous-page': 'previous'
     };
 
+    TasksController.prototype.childEvents = {
+      'click button.destroy': 'destroy'
+    };
+
+    function TasksController(app, route) {
+      this.app = app;
+      this.route = route;
+      this.previous = bind(this.previous, this);
+      this.next = bind(this.next, this);
+      this.destroy = bind(this.destroy, this);
+      this.create = bind(this.create, this);
+      TasksController.__super__.constructor.apply(this, arguments);
+    }
+
     TasksController.prototype.create = function(input) {
-      return this.data.add(new TaskModel(input));
+      return console.log('create');
+    };
+
+    TasksController.prototype.destroy = function(task) {
+      return task.destroy();
+    };
+
+    TasksController.prototype.next = function() {
+      var p;
+      console.log("page:");
+      console.log(this.page);
+      if (this.page !== this.pages) {
+        p = this.page;
+        p += 1;
+        return this.app.router.navigate('/tasks/page/' + p);
+      }
+    };
+
+    TasksController.prototype.previous = function() {
+      var p;
+      if (this.page > 1) {
+        p = this.page;
+        p -= 1;
+        return this.app.router.navigate('/tasks/page/' + p);
+      }
     };
 
     return TasksController;

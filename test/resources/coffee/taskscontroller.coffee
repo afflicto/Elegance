@@ -1,29 +1,32 @@
 class window.TasksController extends Elegance.CollectionController
+	type: 'task'
+	container: 'ul.tasks'
 	events:
 		'submit form.create': 'create'
-	container: 'ul.tasks'
+		'click a.next-page': 'next'
+		'click a.previous-page': 'previous'
+	childEvents:
+		'click button.destroy': 'destroy'
 
-	init: () ->
+	constructor: (@app, @route) ->
 		super
-		collection = new Elegance.Collection
 
-		collection.add new TaskModel
-			'id': 0
-			'name': 'Something'
-			'text': 'Lorem ipsum dolor sit amet.'
-		collection.add new TaskModel
-			'id': 1
-			'name': 'Two!'
-			'text': 'Lorem ipsum dolor.'
-		collection.add new TaskModel
-			'id': 2
-			'name': 'Something else'
-			'text': 'Do that, then Lorem'
-		collection.add new TaskModel
-			'id': 3
-			'name': 'Number four!'
-			'text': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, labore!'
+	create: (input) => 
+		console.log 'create'
 
-		@setData collection
+	destroy: (task) =>
+		task.destroy()
 
-	create: (input) => @data.add new TaskModel input
+	next: () =>
+		console.log "page:"
+		console.log @page
+		unless @page == @pages
+			p = @page
+			p+=1
+			@app.router.navigate '/tasks/page/' + p
+
+	previous: () =>
+		if @page > 1
+			p = @page
+			p-=1
+			@app.router.navigate '/tasks/page/' + p
