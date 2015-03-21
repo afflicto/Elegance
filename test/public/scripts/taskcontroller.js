@@ -8,16 +8,26 @@
 
     function TaskController() {
       this.destroy = bind(this.destroy, this);
+      this.show = bind(this.show, this);
       return TaskController.__super__.constructor.apply(this, arguments);
     }
 
     TaskController.prototype.events = {
-      'click button.delete': 'destroy'
+      'click button.delete': 'destroy',
+      'submit form.create': 'create'
     };
 
     TaskController.prototype.init = function() {
       TaskController.__super__.init.apply(this, arguments);
-      return this.setData(new TaskModel);
+      return this.setData(new TaskModel({
+        'id': 0,
+        'text': 'hello world!'
+      }));
+    };
+
+    TaskController.prototype.show = function(id) {
+      TaskController.__super__.show.apply(this, arguments);
+      return console.log('showing task id: ' + id);
     };
 
     TaskController.prototype.destroy = function() {

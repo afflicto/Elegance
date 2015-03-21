@@ -18,7 +18,7 @@ class Elegance.Router
 	setRootURL: (@rootURL) ->
 		@rootURL.replace /^https?:\/\//, ''
 
-	navigate: (path) ->
+	navigate: (path, pushState = true) ->
 		# sanitize
 		path = path.replace(/^\/{2,}/, '').replace(/\/{2,}$/, '')
 		path = '/' if path is ''
@@ -41,7 +41,8 @@ class Elegance.Router
 					route.target.show.apply(route.target, route.extractParameters(path))
 
 					# push state
-					window.history.pushState route.name, '', @rootURL + path
+					if pushState
+						window.history.pushState path, path, @rootURL + path
 
 					return @current = route
 
@@ -63,7 +64,11 @@ class Elegance.Router
 
 	init: () ->
 		path = window.location.href.replace @rootURL, ''
-		@navigate path
+		@navigate path, false
+
+		$(window).bind 'popstate', (e) =>
+			path = e.originalEvent.state
+			@navigate path, false
 
 
 # register as a module

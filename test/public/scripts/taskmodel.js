@@ -8,10 +8,6 @@
     function TaskModel(attributes) {
       this.attributes = attributes;
       TaskModel.__super__.constructor.apply(this, arguments);
-      this.attributes = {
-        'id': Math.floor(Math.random() * 1000),
-        'text': 'Lorem ipsum!'
-      };
     }
 
     return TaskModel;

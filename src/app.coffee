@@ -20,6 +20,9 @@ class Elegance.App
 			else
 				throw new Error "Unknown module '#{module}'"
 
+		# hide all templates
+		$('[data-template-name]').hide()
+
 	###*
 	 * Render some data into a template
 	 * @param  {HTMLElement} element the template

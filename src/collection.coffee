@@ -8,18 +8,22 @@ class Elegance.Collection extends Array
 	add: (model) ->
 		unless @contains model
 			@push model
-			@radio.trigger 'add', model
-			@radio.trigger 'change', 'add', model
+			@radio.fire 'add', model
+			@radio.fire 'change', 'add', model
 
 	remove: (model) ->
 		index = @indexOf model
 		if index?
 			@splice index, 1
-			@radio.trigger 'remove', model
-			@radio.trigger 'change', 'remove', model
+			@radio.fire 'remove', model
+			@radio.fire 'change', 'remove', model
 
 	contains: (model) ->
 		for record in @
 			if record == model
 				return true
 		false
+
+	on: (events, callback) -> @radio.on events, callback
+
+	off: (events, listeners) -> @radio.off events, listeners

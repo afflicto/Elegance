@@ -8,14 +8,15 @@ class Elegance.TemplateRenderer
 		
 		childTemplates = []
 
+		template.attr 'data-model-id', variables.id
+
 		for element in elements
 			element = $(element)
 
 			# make sure this element is not in a child-template
-			parent = element.parents('[data-template-name]').first()
+			parent = element.parentsUntil(template, '[data-template-name]').first()
 			
-			if parent[0] != template[0]
-				childTemplates.push parent
+			if parent.length > 0
 				continue
 
 			# does this element reference a variable?
@@ -24,6 +25,3 @@ class Elegance.TemplateRenderer
 				value = ""
 				if variables[bound]? then value = variables[bound]
 				element.html(value)
-
-		# return parent templates
-		return childTemplates

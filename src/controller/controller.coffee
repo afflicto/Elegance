@@ -10,11 +10,11 @@ class Elegance.Controller
 		@app = @app
 
 		# Find associated template element
-		@element = $("[data-template-name='#{this.route.name}'").first()
+		@element = $("##{this.route.name}").first()
 		if @element.length == 0
 			@element = null
 			throw new Error "Controller #{this.constructor.name} has no template element.\r
-			Create an element with data-template-name=#{this.route.name}."
+			Create an element with an id of '#{this.route.name}'."
 		else
 			# hide the element initially
 			@element.hide()
@@ -24,18 +24,39 @@ class Elegance.Controller
 				event = event.split ' '
 				selector = event.pop()
 				event = event[0]
-				@element.find(selector).bind(event, this[method])
+				if event == 'submit'
+					self = @
+					@element.find(selector).bind event, (e) ->
+						e.preventDefault()
+
+						input = {}
+						children = $(this).find('input, select, textarea')
+
+						for child in children
+							child = $(child)
+							name = child.attr 'name'
+
+							if name?
+								tag = child.prop 'tagName'
+								tag = tag.toLowerCase()
+
+								if tag is 'input' or tag is 'textarea'
+									input[name] = child.val()
+
+						self[method](input)
+				else
+					@element.find(selector).bind(event, this[method])
 
 	setData: (data) ->
 		# stop listening on our current data
 		if @data?
-			@data.off 'change,destroy', @listeners
+			@data.off 'change', @listeners
 			@listeners = []
 		@data = data
 
 		# begin listening
 		if @data?
-			@listeners.push @data.on 'change,destroy', @onDataChange
+			@listeners.push @data.on 'change', @onDataChange
 
 		@onDataChange()
 

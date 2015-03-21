@@ -10,18 +10,33 @@
 	</head>
 	<body>
 		<div class="container">
-			<h3>Elegance.js</h3>
+			<h1>Elegance.js</h1>
+			<hr>
 			<ul class="nav navigation">
 				<a href="/tasks">Tasks</a>
 				<a href="/tasks/1">Task 1</a>
 				<a href="/about">About</a>
 			</ul>
+			<hr>
 			
-			<div data-template-name="tasks">
-				<h3>Tasks</h3>
+			<div id="tasks">
+				<h2>Tasks</h2>
+				<ul class="tasks list-unstyled">
+					<li data-template-name="task">
+						<h4 data-variable="name">Task name</h4>
+						<p data-variable="text">Task text</p>
+					</li>
+				</ul>
+				<hr>
+				<h4>New Task</h4>
+				<form class="create">
+					<input type="text" name="name" placeholder="name"><br><br>
+					<textarea name="text"></textarea><br><br>
+					<input type="submit" class="btn btn-sm btn-primary" value="Create">
+				</form>
 			</div>
 
-			<div data-template-name="task">
+			<div id="task">
 				<h3>Task <span data-variable="id"></span></h3>
 				<p>
 					<span data-variable="text">text</span>
@@ -30,35 +45,35 @@
 				<button class="delete btn btn-danger btn-sm">Delete</button>
 			</div>
 
-			<div data-template-name="about">
+			<div id="about">
 				<h3>About</h3>
 			</div>
 		</div>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-		
-		<script src="/scripts/handlebars.min.js"></script>
+		<!--<script src="/scripts/handlebars.min.js"></script>-->
+
 		<!-- elegance core -->
-		<script src="/scripts/elegance/elegance.js"></script>
+		<script src="/scripts/elegance/Elegance.js"></script>
 		<script src="/scripts/elegance/utils.js"></script>
-		<script src="/scripts/elegance/radio.js"></script>
+		<script src="/scripts/elegance/Radio.js"></script>
 		<script src="/scripts/elegance/attributes.js"></script>
-		<script src="/scripts/elegance/model.js"></script>
-		<script src="/scripts/elegance/collection.js"></script>
-		<script src="/scripts/elegance/controller/controller.js"></script>
-		<script src="/scripts/elegance/controller/CollectionController.js"></script>
-		<script src="/scripts/elegance/templaterenderer.js"></script>
-		<script src="/scripts/elegance/app.js"></script>
+		<script src="/scripts/elegance/Model.js"></script>
+		<script src="/scripts/elegance/Collection.js"></script>
+		<script src="/scripts/elegance/Controller/Controller.js"></script>
+		<script src="/scripts/elegance/Controller/CollectionController.js"></script>
+		<script src="/scripts/elegance/TemplateRenderer.js"></script>
+		<script src="/scripts/elegance/App.js"></script>
 	
 		<!-- modules -->
-		<script src="/scripts/elegance/router/router.js"></script>
-		<script src="/scripts/elegance/router/route.js"></script>
+		<script src="/scripts/elegance/Router/Router.js"></script>
+		<script src="/scripts/elegance/Router/Route.js"></script>
 		
 		<!-- app -->
-		<script src="/scripts/taskmodel.js"></script>
-		<script src="/scripts/taskscontroller.js"></script>
-		<script src="/scripts/taskcontroller.js"></script>
+		<script src="/scripts/TaskModel.js"></script>
+		<script src="/scripts/TasksController.js"></script>
+		<script src="/scripts/TaskController.js"></script>
 
 		<script src="/scripts/app.js"></script>
 	</body>
